@@ -5,7 +5,7 @@
 
 clear all;
 
-%%%%%%%Plant Date Definition%%%%%%%%%%
+%%%%%%%Plant Data Definition%%%%%%%%%%
 Lambda =[1 0; 0 sqrt(2)];
 
 H=[0 1.1;
@@ -13,6 +13,7 @@ H=[0 1.1;
 B=eye(2); 
 np=max(size(H));
 nu=min(size(B));
+
 %%%%%%%Optimization problem Definition%%%%%%%%%%
 mu=0.1;
 c=sdpvar(1,1,'full');
