@@ -1,10 +1,12 @@
  
-%Run the solver and generate the solution vector [V1to, V2to,V3to] and the grid of
+%Run the solver and generates the solution vector [x1, x2, x3] and the grid of
 %points (t,z) over which the solution has been computed
 
-[x1,t1, V1to, V2to, V3to]=hyp_static_bc(); 
+[x1,t1, x1, x2, x3]=hyp_static_bc(); 
 
-z=x1(1,:);
+z=z1(1,:); %extract a vector of samples for the spatial variable z
+t=t1(1,:); %extract a vector of samples for the time variable t
 
-Norm=SpatialNorm(V1to, V2to,V3to, z); %Compute the evolution over time of the (spatial) L2 norm of the solution (V1to(t,.),V2to(t,.),V3to(t,.))
-plot(t1(:,1),Norm,'-k','linewidth', 2); %Plot the evolution over time of the (spatial) L2 norm of the solution (V1to(t,.),V2to(t,.),V3to(t,.))
+Norm=SpatialNorm(x1, x2, x3, z); %Compute the evolution over time of the (spatial) L2 norm of the solution (V1to(t,.),V2to(t,.),V3to(t,.))
+
+plot(t,Norm,'-k','linewidth', 2); %Plot the evolution over time of the (spatial) L2 norm of the solution (V1to(t,.),V2to(t,.),V3to(t,.))
