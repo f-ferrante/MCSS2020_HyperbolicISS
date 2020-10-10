@@ -20,7 +20,7 @@ c=sdpvar(1,1,'full');
 P=diag(sdpvar(np,1));
 Q=sdpvar(np,np,'full');
 Y=sdpvar(np,np,'full');
-s=sqrt(exp(-mu)*min(eig(Lambda)));
+s=sqrt(mu*exp(-mu)*min(eig(Lambda)));
 
  M=[Q+Q'+Lambda*P, -(Q'*H+Y), -Y;
     -(Q'*H+Y)', -exp(-mu)*P*Lambda, zeros(np,np);
