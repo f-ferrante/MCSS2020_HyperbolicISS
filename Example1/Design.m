@@ -42,3 +42,19 @@ end
 %%%%%%%%%%%%%%Definition of global variables for simulations%%%%%%%%%%%%
 global H B K Lambda
 
+%%%%%%%%%%%%%%Comparison with Pole Placement-based Control%%%%%%%%%%%%
+Kprime=-place(H,B,eig(H+B*K)); %Control design
+%%%%%%%%%%%%%%Check if (H+BKprime) is Dissipative%%%%%%%%%%%%
+c=sdpvar(1,1,'full');
+P=diag(sdpvar(np,1));
+Q=sdpvar(np,np,'full');
+s=exp(-mu)*mu*min(eig(Lambda));
+M=[Q+Q'+Lambda*P, -Q'*(H+B*K), -Q'*B*K;
+   -(Q'*(H+B*K))', -exp(-mu)*P*Lambda, zeros(np,np);
+    (-Q'*B*K)', zeros(np,np),-eye(np)*s];
+problem=[M<=-1e-8*eye(max(size(M))), P>=c*eye(np), c>=0, P>=1e-6*eye(np)];    
+options=sdpsettings('solver','sdpt3','verbose',2);
+solution=solvesdp(problem, -c,options);
+if(solution.problem==0)
+    disp('H+BKprime is dissipative')
+end
